@@ -22,8 +22,10 @@ package com.infotarget.codility.scala
   */
 object CyclicRotation {
   def solution(A: Array[Int], K: Int): Array[Int] = {
-    //TODO
-
-    ???
+    val result: Array[Int] = new Array(A.length)
+    for (i <- A.indices) {
+      result((i + K) % A.length) = A(i)
+    }
+    result
   }
 }

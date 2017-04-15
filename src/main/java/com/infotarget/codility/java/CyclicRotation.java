@@ -1,5 +1,7 @@
 package com.infotarget.codility.java;
 
+import java.util.stream.IntStream;
+
 /**
  * A zero-indexed array A consisting of N integers is given. Rotation of the array means that each element
  * is shifted right by one index, and the last element of the array is also moved to the first place.
@@ -22,13 +24,17 @@ package com.infotarget.codility.java;
  */
 public class CyclicRotation {
     public int[] solution1(int[] A, int K) {
-        //TODO
-        return A;
+        int[] result = new int[A.length];
+        for (int i = 0; i < result.length; i++) {
+            result[(i + K) % result.length] = A[i];
+        }
+        return result;
 
     }
 
     public int[] solution2(int[] A, int K) {
-        //TODO
-        return A;
+        int[] result = new int[A.length];
+        IntStream.range(0, A.length).forEachOrdered(i -> result[(i + K) % A.length] = A[i]);
+        return result;
     }
 }
