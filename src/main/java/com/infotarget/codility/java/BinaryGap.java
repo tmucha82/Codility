@@ -12,7 +12,7 @@ import java.util.stream.Stream;
  * <p>
  * Write a function:
  * <p>
- * class Solution { public int solution(int N); }
+ * class Solution { public int solution1(int N); }
  * that, given a positive integer N, returns the length of its longest binary gap. The function should return 0 if N doesn't contain a binary gap.
  * <p>
  * For example, given N = 1041 the function should return 5, because N has binary representation 10000010001 and so its longest binary gap is of length 5.
@@ -26,7 +26,28 @@ import java.util.stream.Stream;
  * expected worst-case space complexity is O(1).
  */
 public class BinaryGap {
-    public int solution(int N) {
-        return Stream.of(Integer.toBinaryString(N).replaceAll("0+$", "").split("1+")).map(String::length).max(Integer::compare).orElse(0);
+    public int solution1(int N) {
+        return Stream.of(Integer.toBinaryString(N).replaceAll("0+$", "").split("1+")).
+                map(String::length).
+                max(Integer::compare).
+                orElse(0);
     }
+
+    public int solution2(int N) {
+        char[] bits = Integer.toBinaryString(N).toCharArray();
+        int maxGap = 0;
+        int currentCounter = 0;
+        for (char bit : bits) {
+            if ('1' == bit) {
+                if (maxGap < currentCounter) {
+                    maxGap = currentCounter;
+                }
+                currentCounter = 0;
+            } else {
+                currentCounter++;
+            }
+        }
+        return maxGap;
+    }
+
 }
