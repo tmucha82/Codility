@@ -91,7 +91,7 @@ public class AbsDistinct {
         return set.size();
     }
 
-    public int solution3(int [] A) {
+    public int solution3(int[] A) {
         return (int) IntStream.of(A).map(Math::abs).distinct().count();
     }
 }
