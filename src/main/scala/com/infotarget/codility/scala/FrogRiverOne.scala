@@ -61,7 +61,6 @@ object FrogRiverOne {
       if (sum == X) {
         return i
       }
-
     }
     -1
   }
