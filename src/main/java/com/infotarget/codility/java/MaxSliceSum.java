@@ -1,5 +1,7 @@
 package com.infotarget.codility.java;
 
+import java.util.stream.IntStream;
+
 /**
  * A non-empty zero-indexed array A consisting of N integers is given. A pair of integers (P, Q), such that 0 ≤ P ≤ Q < N, is called a slice of array A. The sum of a slice (P, Q) is the total of A[P] + A[P+1] + ... + A[Q].
  * <p>
@@ -30,8 +32,42 @@ package com.infotarget.codility.java;
  * Elements of input arrays can be modified.
  */
 public class MaxSliceSum {
-    public int solution(int[] A) {
-        //TODO
-        return 0;
+
+    int solution1(int[] A) {
+        /**
+         # starting array
+         A = [5, -2, 10, 3, -25, 12, 6]
+         # calculating the max slice in O(n), starting from A[1]
+         # copy A into S, where the max slices are stored
+         S = A[:]
+         # instead of looping, I'll unroll the loop for simplicity
+         # so, at S[1], we either add the previous sum, or start over
+         # to decide that, we simply check the max between the element and the previous sum added
+         S[1] = max(S[1], S[1] + S[0])
+         # S = [5, 3, ...]
+         S[2] = max(S[2], S[2] + S[1])
+         # S = [5, 3, 13, ...]
+         # S = [5, 3, 13, 16, ...]
+         # S = [5, 3, 13, 16, -9, ...]
+         # S = [5, 3, 13, 16, -9, 12, ...]
+         # S = [5, 3, 13, 16, -9, 12, 18]
+         # answer = max(S)
+         */
+        int[] S = new int[A.length];
+        S[0] = A[0];
+        for (int i = 1; i < S.length; i++) {
+            S[i] = Math.max(A[i], A[i] + S[i - 1]);
+        }
+        return IntStream.of(S).max().getAsInt();
+    }
+
+    public int solution2(int[] A) {
+        int maxEnding = 0;
+        int maxSlice = 0;
+        for (Integer a : A) {
+            maxEnding = Math.max(0, maxEnding + a);
+            maxSlice = Math.max(maxSlice, maxEnding);
+        }
+        return maxSlice;
     }
 }

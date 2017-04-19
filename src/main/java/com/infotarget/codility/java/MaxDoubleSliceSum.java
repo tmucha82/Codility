@@ -53,7 +53,20 @@ package com.infotarget.codility.java;
  */
 public class MaxDoubleSliceSum {
     public int solution(int[] A) {
-        //TODO
-        return 0;
+        int N = A.length - 2;
+
+        int[] leftSums = new int[N];
+        int[] rightSums = new int[N];
+
+        for (int i = 0, length = N - 1; i < length; i++) {
+            leftSums[i + 1] = Math.max(0, leftSums[i] + A[i + 1]);
+            rightSums[length - i - 1] = Math.max(0, rightSums[length - i] + A[length - i + 1]);
+        }
+
+        int maxSum = Integer.MIN_VALUE;
+        for (int i = 0; i < N; i++) {
+            maxSum = Math.max(maxSum, leftSums[i] + rightSums[i]);
+        }
+        return maxSum;
     }
 }
