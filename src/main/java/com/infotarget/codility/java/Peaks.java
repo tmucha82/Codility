@@ -1,5 +1,8 @@
 package com.infotarget.codility.java;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A non-empty zero-indexed array A consisting of N integers is given.
  * <p>
@@ -75,7 +78,31 @@ package com.infotarget.codility.java;
  */
 public class Peaks {
     public int solution(int[] A) {
-        //TODO
-        return 0;
+        List<Integer> peaks = findPeaks(A);
+        int max = 0;
+        for (int K = 2; K < A.length; K++) {
+            if (A.length % K == 0) {
+                int bi = 0;
+                for (Integer peak : peaks) {
+                    if (bi * K <= peak && peak < (bi + 1) * K) {
+                        bi++;
+                    }
+                }
+                if (bi == A.length / K) {
+                    return A.length / K;
+                }
+            }
+        }
+        return max;
+    }
+
+    List<Integer> findPeaks(int[] A) {
+        List<Integer> peaks = new ArrayList<>();
+        for (int i = 1; i < A.length - 1; i++) {
+            if (A[i - 1] < A[i] && A[i] > A[i + 1]) {
+                peaks.add(i);
+            }
+        }
+        return peaks;
     }
 }

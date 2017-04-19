@@ -1,5 +1,8 @@
 package com.infotarget.codility.java;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A non-empty zero-indexed array A consisting of N integers is given.
  * <p>
@@ -67,7 +70,39 @@ package com.infotarget.codility.java;
  */
 public class Flags {
     public int solution(int[] A) {
-        //TODO
-        return 0;
+        Integer[] peaks = findPeaks(A);
+
+        if (peaks.length < 2) {
+            return peaks.length;
+        }
+
+        int maxDistance = peaks[peaks.length - 1] - peaks[0];
+        int maxF = (int) (Math.sqrt(maxDistance) + 1);
+
+        int max = 0;
+        for (int k = 2; k <= maxF; k++) {
+            int lastPick = peaks[0];
+            int used = 1;
+            for (int c = 1; c < peaks.length && used < k; c++) {
+                if (peaks[c] - lastPick >= k) {
+                    lastPick = peaks[c];
+                    used++;
+                }
+            }
+            max = Math.max(used, max);
+        }
+
+        return max;
     }
+
+    Integer[] findPeaks(int[] A) {
+        List<Integer> peaks = new ArrayList<>();
+        for (int i = 1; i < A.length - 1; i++) {
+            if (A[i - 1] < A[i] && A[i] > A[i + 1]) {
+                peaks.add(i);
+            }
+        }
+        return peaks.toArray(new Integer[peaks.size()]);
+    }
+
 }
