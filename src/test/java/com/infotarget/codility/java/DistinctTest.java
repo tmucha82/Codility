@@ -5,8 +5,6 @@ import org.junit.Test;
 
 import java.util.function.ToIntBiFunction;
 
-import static org.junit.Assert.*;
-
 public class DistinctTest {
 
     private Distinct distinct = new Distinct();

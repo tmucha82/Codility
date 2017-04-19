@@ -3,8 +3,6 @@ package com.infotarget.codility.java;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class MissingIntegerTest {
 
     private MissingInteger missingInteger = new MissingInteger();

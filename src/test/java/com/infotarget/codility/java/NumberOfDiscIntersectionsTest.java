@@ -3,8 +3,6 @@ package com.infotarget.codility.java;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class NumberOfDiscIntersectionsTest {
 
     private NumberOfDiscIntersections numberOfDiscIntersections = new NumberOfDiscIntersections();
