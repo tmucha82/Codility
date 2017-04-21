@@ -9,11 +9,11 @@ public class CountDivTest {
 
     @Test
     public void testSolution() throws Exception {
-        Assert.assertEquals(3, countDiv.solution(5,11,2));
-        Assert.assertEquals(3, countDiv.solution(6,11,2));
-        Assert.assertEquals(2, countDiv.solution(6,11,3));
-        Assert.assertEquals(1, countDiv.solution(6,11,6));
-        Assert.assertEquals(4, countDiv.solution(6,12,2));
-        Assert.assertEquals(7, countDiv.solution(5,11,1));
+        Assert.assertEquals(3, countDiv.solution(5, 11, 2));
+        Assert.assertEquals(3, countDiv.solution(6, 11, 2));
+        Assert.assertEquals(2, countDiv.solution(6, 11, 3));
+        Assert.assertEquals(1, countDiv.solution(6, 11, 6));
+        Assert.assertEquals(4, countDiv.solution(6, 12, 2));
+        Assert.assertEquals(7, countDiv.solution(5, 11, 1));
     }
 }

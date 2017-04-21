@@ -37,8 +37,38 @@ package com.infotarget.codility.java;
 public class CommonPrimeDivisors {
 
     public int solution(int[] A, int[] B) {
-        //TODO
-        return 0;
+        //1 - when a and b have same gcd, then they have one minimum prime in common
+        //2 - to test other primes, you divide them using their gcd until another prime appear
+        // and leave a remainder in a or b which cause it a!=1 or b!=1 // this is what
+        int result = 0;
+        for (int i = 0; i < A.length; i++) {
+            if (checkSamePrimeDivisor(A[i], B[i])) {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    boolean checkSamePrimeDivisor(int A, int B) {
+        int D = gcd(A, B);
+        return reduce(A, D) == 1 && reduce(B, D) == 1;
+    }
+
+    int reduce(int A, int gcd) {
+        int c = 0;
+        while (c != 1) {
+            c = gcd(A, gcd);
+            A /= c;
+        }
+        return A;
+    }
+
+    int gcd(int A, int B) {
+        if (A % B == 0) {
+            return B;
+        } else {
+            return gcd(B, A % B);
+        }
     }
 
 }
