@@ -1,26 +1,25 @@
 package com.infotarget.codility.java;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * The Fibonacci sequence is defined using the following recursive formula:
- * <p>
+ * <p/>
  * F(0) = 0
  * F(1) = 1
  * F(M) = F(M - 1) + F(M - 2) if M >= 2
  * A small frog wants to get to the other side of a river. The frog is initially located at one bank of the river (position −1) and wants to get to the other bank (position N). The frog can jump over any distance F(K), where F(K) is the K-th Fibonacci number. Luckily, there are many leaves on the river, and the frog can jump between the leaves, but only in the direction of the bank at position N.
- * <p>
+ * <p/>
  * The leaves on the river are represented in a zero-indexed array A consisting of N integers. Consecutive elements of array A represent consecutive positions from 0 to N − 1 on the river. Array A contains only 0s and/or 1s:
- * <p>
+ * <p/>
  * 0 represents a position without a leaf;
  * 1 represents a position containing a leaf.
  * The goal is to count the minimum number of jumps in which the frog can get to the other side of the river (from position −1 to position N). The frog can jump between positions −1 and N (the banks of the river) and every position containing a leaf.
- * <p>
+ * <p/>
  * For example, consider array A such that:
- * <p>
+ * <p/>
  * A[0] = 0
  * A[1] = 0
  * A[2] = 0
@@ -33,14 +32,14 @@ import java.util.List;
  * A[9] = 0
  * A[10] = 0
  * The frog can make three jumps of length F(5) = 5, F(3) = 2 and F(5) = 5.
- * <p>
+ * <p/>
  * Write a function:
- * <p>
+ * <p/>
  * class Solution { public int solution(int[] A); }
  * that, given a zero-indexed array A consisting of N integers, returns the minimum number of jumps by which the frog can get to the other side of the river. If the frog cannot reach the other side of the river, the function should return −1.
- * <p>
+ * <p/>
  * For example, given:
- * <p>
+ * <p/>
  * A[0] = 0
  * A[1] = 0
  * A[2] = 0
@@ -53,13 +52,13 @@ import java.util.List;
  * A[9] = 0
  * A[10] = 0
  * the function should return 3, as explained above.
- * <p>
+ * <p/>
  * Assume that:
- * <p>
+ * <p/>
  * N is an integer within the range [0..100,000];
  * each element of array A is an integer that can have one of the following values: 0, 1.
  * Complexity:
- * <p>
+ * <p/>
  * expected worst-case time complexity is O(N*log(N));
  * expected worst-case space complexity is O(N), beyond input storage (not counting the storage required for input arguments).
  * Elements of input arrays can be modified.
@@ -68,9 +67,27 @@ public class FibFrog {
     public int solution(int[] A) {
         Integer[] fibonacci = generateFibonacci(A.length);
 
+        //-1|0......N-1| N
+        int currentPosition = -1;
+        int nextPosition = -1;
+        int result = 0;
 
-
-        return 0;
+        while (currentPosition < A.length) {
+            for (Integer fib : fibonacci) {
+                int next = currentPosition + fib;
+                if (next == A.length || (next < A.length && 1 == A[next])) {
+                    nextPosition = next;
+                    break;
+                }
+            }
+            if (currentPosition == nextPosition) {
+                return -1;
+            } else {
+                currentPosition = nextPosition;
+                result++;
+            }
+        }
+        return result;
     }
 
     private Integer[] generateFibonacci(int N) {
@@ -87,5 +104,4 @@ public class FibFrog {
         Collections.reverse(fibonacciSequence);
         return fibonacciSequence.toArray(new Integer[fibonacciSequence.size()]);
     }
-
 }
