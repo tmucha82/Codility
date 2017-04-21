@@ -1,8 +1,6 @@
 package com.infotarget.codility.java;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * The Fibonacci sequence is defined using the following recursive formula:
@@ -64,30 +62,34 @@ import java.util.List;
  * Elements of input arrays can be modified.
  */
 public class FibFrog {
+    class Point {
+        int position;
+        int counter;
+
+        public Point(int position, int counter) {
+            this.position = position;
+            this.counter = counter;
+        }
+    }
+
     public int solution(int[] A) {
         Integer[] fibonacci = generateFibonacci(A.length);
 
-        //-1|0......N-1| N
-        int currentPosition = -1;
-        int nextPosition = -1;
-        int result = 0;
-
-        while (currentPosition < A.length) {
+        Queue<Point> queue = new LinkedList<>(Collections.singletonList(new Point(-1, 0)));
+        while (!queue.isEmpty()) {
+            Point currentPosition = queue.remove();
             for (Integer fib : fibonacci) {
-                int next = currentPosition + fib;
-                if (next == A.length || (next < A.length && 1 == A[next])) {
-                    nextPosition = next;
-                    break;
+                Point next = new Point(currentPosition.position + fib, currentPosition.counter + 1);
+                if (next.position == A.length) {
+                    return next.counter;
+                } else if (next.position < A.length && A[next.position] == 1) {
+                    queue.add(next);
+                    A[next.position] = 0;
                 }
             }
-            if (currentPosition == nextPosition) {
-                return -1;
-            } else {
-                currentPosition = nextPosition;
-                result++;
-            }
         }
-        return result;
+        return -1;
+
     }
 
     private Integer[] generateFibonacci(int N) {

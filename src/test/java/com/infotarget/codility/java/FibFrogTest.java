@@ -10,6 +10,6 @@ public class FibFrogTest {
     @Test
     public void testSolution() throws Exception {
         Assert.assertEquals(3, fibFrog.solution(new int[]{0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0}));
-        Assert.assertEquals(3, fibFrog.solution(new int[]{0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0}));
+        Assert.assertEquals(2, fibFrog.solution(new int[]{0, 1, 1, 0, 0, 0, 1, 0, 0}));
     }
 }
