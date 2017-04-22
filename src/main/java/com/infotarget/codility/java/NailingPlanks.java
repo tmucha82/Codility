@@ -83,7 +83,7 @@ public class NailingPlanks {
         return total;
     }
 
-    private boolean check(int[] A, int[] B, int[] C, int c) {
+    boolean check(int[] A, int[] B, int[] C, int c) {
         int max = 2 * C.length + 1;
         int[] prefixSum = new int[max];
 
