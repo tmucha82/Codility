@@ -14,9 +14,12 @@ public class NailingPlanksTest {
 
     @Test
     public void testCheck() throws Exception {
-        Assert.assertFalse(nailingPlanks.check(new int[]{1, 4, 5, 8}, new int[]{4, 5, 9, 10}, new int[]{4, 6, 7, 10, 2}, 1));
-        Assert.assertFalse(nailingPlanks.check(new int[]{1, 4, 5, 8}, new int[]{4, 5, 9, 10}, new int[]{4, 6, 7, 10, 2}, 2));
-        Assert.assertFalse(nailingPlanks.check(new int[]{1, 4, 5, 8}, new int[]{4, 5, 9, 10}, new int[]{4, 6, 7, 10, 2}, 3));
-        Assert.assertTrue(nailingPlanks.check(new int[]{1, 4, 5, 8}, new int[]{4, 5, 9, 10}, new int[]{4, 6, 7, 10, 2}, 4));
+        int[] A = {1, 4, 5, 8};
+        int[] B = {4, 5, 9, 10};
+        int[] C = {4, 6, 7, 10, 2};
+        Assert.assertFalse(nailingPlanks.check(A, B, C, 1));
+        Assert.assertFalse(nailingPlanks.check(A, B, C, 2));
+        Assert.assertFalse(nailingPlanks.check(A, B, C, 3));
+        Assert.assertTrue(nailingPlanks.check(A, B, C, 4));
     }
 }

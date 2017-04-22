@@ -56,6 +56,7 @@ import java.awt.*;
  * Elements of input arrays can be modified.
  */
 public class MinMaxDivision {
+
     public int solution(int K, int M, int[] A) {
         int begin = 0; //maxElement of A[]
         int end = 0; //sum of all elements of A[]
@@ -84,7 +85,7 @@ public class MinMaxDivision {
         return best;
     }
 
-    private Point getBlocksForSumUpToMid(int[] A, int limit) {
+    Point getBlocksForSumUpToMid(int[] A, int limit) {
         int max = 0;
         int sum = A[0];
         int count = 1;
