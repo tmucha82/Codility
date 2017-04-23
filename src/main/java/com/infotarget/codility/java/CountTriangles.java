@@ -48,7 +48,7 @@ public class CountTriangles {
                 if (right < A.length && A[i] + A[left] > A[right]) {
                     right++;
                 } else {
-                    counter += right - left - 1;
+                    counter += (right - left - 1);
                     left++;
                 }
             }
