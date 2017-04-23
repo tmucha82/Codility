@@ -57,8 +57,6 @@ public class MinAbsSumOfTwo {
         Arrays.sort(A);
         int result = Math.abs(A[0] + A[A.length - 1]);
         for (int i = 0, j = A.length - 1; i < j && result > 0; result = Math.min(result, Math.abs(A[i] + A[j]))) {
-            System.out.println("A[i] = " + A[i]);
-            System.out.println("A[j] = " + A[j]);
             if (-A[i] > A[j]) {
                 i++;
             } else {
