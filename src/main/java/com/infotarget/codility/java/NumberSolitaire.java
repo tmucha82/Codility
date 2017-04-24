@@ -53,7 +53,23 @@ package com.infotarget.codility.java;
 public class NumberSolitaire {
 
     public int solution(int[] A) {
-        //TODO
-        return 8;
+        int N = A.length;
+        int[] dp = new int[N];
+        dp[0] = A[0];
+
+        for (int i = 1; i < N; i++) {
+            int max = dp[i - 1] + A[i];
+
+            for (int j = 1; j <= 6; j++) { /// kostka
+                if (i - j >= 0) {
+                    max = Math.max(dp[i - j] + A[i], max);
+                } else {
+                    break;
+                }
+            }
+            dp[i] = max;
+        }
+
+        return dp[N - 1];
     }
 }
