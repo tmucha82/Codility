@@ -1,5 +1,8 @@
 package com.infotarget.codility.java;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -49,6 +52,22 @@ public class BinaryGap {
             }
         }
         return maxGap;
+    }
+
+    int solution3(int n) {
+        while (n % 2 == 0) {
+            n /= 2;
+        }
+        return solutionLoop(n, 0, 0);
+    }
+
+    int solutionLoop(int n, int max, int current) {
+        if (n == 0)
+            return max;
+        else if (n % 2 == 0)
+            return solutionLoop(n / 2, max, current + 1);
+        else
+            return solutionLoop(n / 2, Math.max(max, current), 0);
     }
 
 }

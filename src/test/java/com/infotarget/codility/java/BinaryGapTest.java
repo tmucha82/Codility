@@ -19,12 +19,16 @@ public class BinaryGapTest {
         testSolution(binaryGap::solution2);
     }
 
+    @Test
+    public void testSolution3() throws Exception {
+        testSolution(binaryGap::solution3);
+    }
+
     private void testSolution(ToIntFunction<Integer> solution) {
         Assert.assertEquals(2, solution.applyAsInt(9));
         Assert.assertEquals(4, solution.applyAsInt(529));
         Assert.assertEquals(5, solution.applyAsInt(1041));
         Assert.assertEquals(0, solution.applyAsInt(15));
         Assert.assertEquals(0, solution.applyAsInt(8));
-
     }
 }
