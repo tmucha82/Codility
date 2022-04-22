@@ -1,41 +1,37 @@
 package com.infotarget.codility.java.refactor.after;
 
+import lombok.Builder;
+import lombok.val;
+
 import java.util.List;
+import java.util.function.IntSupplier;
 
 class Review {
 
-  private static final String EXTERNAL_ID = "externalId";
+  @Builder
+  public static class ProductContext {
+    List<CartItem> cartItems;
+    SiteDetails siteDetails;
+    String productId;
+  }
+
 
   public void checkConnectivityRestrictions(List<CartItem> cartItems, Integer amount, String productId, SiteDetails siteDetails) {
-    Integer difference = amount;
-    for (CartItem cartItem : cartItems) {
-      if (productId.equals(cartItem.getProduct()
-        .getProductCharacteristics().stream()
-        .filter(characteristic -> EXTERNAL_ID.equals(characteristic.getName()))
-        .findFirst()
-        .orElseThrow(IllegalArgumentException::new)
-        .getValue())) {
-        difference = difference - cartItem.getQuantity();
-        if (difference <= 0) {
-          return;
-        }
-        break;
-      }
-    }
+    val difference = amount - sumQuantityByProductId(cartItems, productId);
+    val addOnMaxRemainingQuantity = siteDetails.findByProductId(productId)
+      .map(AddOn::getMaxAllowedQuantity)
+      .orElse(Integer.MAX_VALUE);
 
-    Integer addOnMaxRemainingQuantity = null;
-    for (AddOnGroup addOnGroup : siteDetails.getAddOnGroups()) {
-      for (AddOn addOn : addOnGroup.getAddOns()) {
-        if (productId.equals(addOn.getId()) && addOn.getMaxAllowedQuantity() != null) {
-          addOnMaxRemainingQuantity = addOn.getMaxAllowedQuantity();
-          break;
-        }
-      }
-    }
-
-    if (addOnMaxRemainingQuantity != null && difference > addOnMaxRemainingQuantity) {
+    if (difference > addOnMaxRemainingQuantity) {
+      //TO DO - result not exception
       throw new ApolloExploreServiceException("403", "Selected quantity is above the restriction limit.", HttpStatus.FORBIDDEN);
     }
+  }
 
+  private Integer sumQuantityByProductId(List<CartItem> cartItems, String productId) {
+    return cartItems.stream()
+      .filter(item -> productId.equals(item.findExternalProductId()))
+      .map(CartItem::getQuantity)
+      .reduce(0, Integer::sum);
   }
 }

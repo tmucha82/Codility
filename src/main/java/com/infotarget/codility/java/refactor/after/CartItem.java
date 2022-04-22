@@ -8,4 +8,9 @@ import lombok.Value;
 class CartItem {
   Product product;
   Integer quantity;
+
+  public String findExternalProductId() {
+    return product.findExternalProductId()
+      .orElseThrow(IllegalArgumentException::new);
+  }
 }

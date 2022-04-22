@@ -17,4 +17,8 @@ class Characteristic {
 
   String name;
   String value;
+
+  public boolean isExternal() {
+    return EXTERNAL_ID.equals(getName());
+  }
 }
